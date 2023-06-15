@@ -1,6 +1,7 @@
-package de.nerax.ttt.gamestates;
+package de.moshpit.ttt.gamestates;
 
 public class EndingState extends GameState{
+
     @Override
     public void start() {
 

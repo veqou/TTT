@@ -1,4 +1,4 @@
-package de.nerax.ttt.gamestates;
+package de.moshpit.ttt.gamestates;
 
 public class IngameState extends GameState{
     @Override

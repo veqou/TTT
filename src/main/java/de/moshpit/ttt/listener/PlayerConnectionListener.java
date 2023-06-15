@@ -1,8 +1,9 @@
-package de.nerax.ttt.listener;
+package de.moshpit.ttt.listener;
 
-import de.nerax.ttt.TTT;
-import de.nerax.ttt.gamestates.LobbyState;
-import de.nerax.ttt.utils.Chat;
+import de.moshpit.ttt.TTT;
+import de.moshpit.ttt.countdowns.LobbyCountdown;
+import de.moshpit.ttt.gamestates.LobbyState;
+import de.moshpit.ttt.utils.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,8 +25,16 @@ public class PlayerConnectionListener implements Listener {
         Player player = event.getPlayer();
         instance.getPlayers().add(player);
         event.setJoinMessage(Chat.CHAT_PREFIX + "§e" + player.getDisplayName() + "§7 hat das Spiel betreten.");
-        if(instance.getPlayers().size() >= LobbyState.MIN_PLAYERS)
-            Bukkit.broadcastMessage("das spiel würde starten");
+
+        LobbyState lobbyState = (LobbyState) instance.getGameStateManager().getCurrentGameState();
+        LobbyCountdown countdown = lobbyState.getCountdown();
+        if(instance.getPlayers().size() >= LobbyState.MIN_PLAYERS) {
+            if(!countdown.isRunning()) {
+                countdown.stopIdle();
+                countdown.start();
+            }
+        }
+
 
     }
 
@@ -35,8 +44,15 @@ public class PlayerConnectionListener implements Listener {
         Player player = event.getPlayer();
         instance.getPlayers().remove(player);
         event.setQuitMessage(Chat.CHAT_PREFIX + "§e" + player.getDisplayName() + "§7 hat das Spiel verlassen.");
-        if(instance.getPlayers().size() >= LobbyState.MIN_PLAYERS)
-            Bukkit.broadcastMessage("das spiel würde starten");
+
+        LobbyState lobbyState = (LobbyState) instance.getGameStateManager().getCurrentGameState();
+        LobbyCountdown countdown = lobbyState.getCountdown();
+        if(instance.getPlayers().size() < LobbyState.MIN_PLAYERS) {
+            if(countdown.isRunning()) {
+                countdown.stop();
+                countdown.startIdle();
+            }
+        }
     }
 
 

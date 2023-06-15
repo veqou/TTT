@@ -1,8 +1,7 @@
-package de.nerax.ttt;
+package de.moshpit.ttt;
 
-import de.nerax.ttt.gamestates.GameState;
-import de.nerax.ttt.gamestates.GameStateManager;
-import org.bukkit.configuration.file.FileConfiguration;
+import de.moshpit.ttt.gamestates.GameState;
+import de.moshpit.ttt.gamestates.GameStateManager;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 

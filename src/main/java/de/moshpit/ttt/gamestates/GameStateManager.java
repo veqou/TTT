@@ -1,6 +1,6 @@
-package de.nerax.ttt.gamestates;
+package de.moshpit.ttt.gamestates;
 
-import de.nerax.ttt.TTT;
+import de.moshpit.ttt.TTT;
 
 public class GameStateManager {
 
@@ -12,7 +12,7 @@ public class GameStateManager {
         this.instance = instance;
 
         gameStates = new GameState[3];
-        gameStates[GameState.LOBBY_STATE] = new LobbyState();
+        gameStates[GameState.LOBBY_STATE] = new LobbyState(this);
         gameStates[GameState.INGAME_STATE] = new IngameState();
         gameStates[GameState.ENDING_STATE] = new EndingState();
 
@@ -35,5 +35,9 @@ public class GameStateManager {
 
     public GameState getCurrentGameState() {
         return currentGameState;
+    }
+
+    public TTT getInstance() {
+        return instance;
     }
 }

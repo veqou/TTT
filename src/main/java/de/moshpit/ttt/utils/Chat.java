@@ -1,4 +1,4 @@
-package de.nerax.ttt.utils;
+package de.moshpit.ttt.utils;
 
 public class Chat {
 
